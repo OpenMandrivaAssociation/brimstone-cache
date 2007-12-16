@@ -3,7 +3,7 @@
 
 Name:           brimstone-cache
 Version:        0.1.16
-Release:        %mkrel 0.0.2
+Release:        %mkrel 0.0.3
 Epoch:          0
 Summary:        org.freecompany.brimstone
 License:        MIT
@@ -20,7 +20,7 @@ BuildRequires:  ant
 BuildRequires:  ant-junit
 BuildRequires:  brimstone-core
 BuildRequires:  util-core
-BuildRequires:  jpackage-utils >= 0:1.6
+BuildRequires:  java-rpmbuild >= 0:1.6
 BuildRequires:  junit
 %if %{gcj_support}
 BuildRequires:  java-gcj-compat-devel
