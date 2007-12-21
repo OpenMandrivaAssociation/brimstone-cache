@@ -29,6 +29,7 @@ BuildRequires:  java-devel
 BuildArch:      noarch
 %endif
 BuildRequires:  java-devel-icedtea
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 org.freecompany.brimstone
