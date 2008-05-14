@@ -3,7 +3,7 @@
 
 Name:           brimstone-cache
 Version:        0.1.16
-Release:        %mkrel 0.0.3
+Release:        %mkrel 0.0.4
 Epoch:          0
 Summary:        org.freecompany.brimstone
 License:        MIT
@@ -14,7 +14,7 @@ URL:            http://www.freecompany.org/
 Source0:        http://repository.freecompany.org/org/freecompany/brimstone/zips/brimstone-cache-src-%{version}.zip
 Source1:        brimstone-cache-0.1.16-build.xml
 Requires:       brimstone-core
-Requires:       java-icedtea
+Requires:       java >= 1.6
 Requires:       util-core
 BuildRequires:  ant
 BuildRequires:  ant-junit
@@ -28,7 +28,6 @@ BuildRequires:  java-gcj-compat-devel
 BuildRequires:  java-devel
 BuildArch:      noarch
 %endif
-BuildRequires:  java-devel-icedtea
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
@@ -47,26 +46,23 @@ Javadoc for %{name}.
 %{__perl} -pi -e 's|<javac|<javac nowarn="true"|g' build.xml
 
 %build
-export JAVA_HOME=%{_jvmdir}/java-icedtea
 export CLASSPATH=$(build-classpath junit brimstone-core util-core)
 export OPT_JAR_LIST="ant/ant-junit"
 # XXX: test testFileCachedWithoutHeaders does not pass
-ant jar javadoc #test
+%ant jar javadoc #test
 
 %install
 %{__rm} -rf %{buildroot}
 
 %{__mkdir_p} %{buildroot}%{_javadir}
 %{__cp} -a dist/%{name}.jar %{buildroot}%{_javadir}/%{name}-%{version}.jar
-(cd %{buildroot}%{_javadir} && for jar in *-%{version}*; do %{__ln_s} ${jar} ${jar/-%{version}/}; done)
+%create_jar_links
 
 %{__mkdir_p} %{buildroot}%{_javadocdir}/%{name}-%{version}
 %{__cp} -a dist/doc/* %{buildroot}%{_javadocdir}/%{name}-%{version}
 %{__ln_s} %{name}-%{version} %{buildroot}%{_javadocdir}/%{name}
 
-%if %{gcj_support}
-%{_bindir}/aot-compile-rpm
-%endif
+%{gcj_compile}
 
 %clean
 %{__rm} -rf %{buildroot}
@@ -83,11 +79,7 @@ ant jar javadoc #test
 %defattr(0644,root,root,0755)
 %{_javadir}/%{name}.jar
 %{_javadir}/%{name}-%{version}.jar
-%if %{gcj_support}
-%dir %{_libdir}/gcj/%{name}
-%attr(-,root,root) %{_libdir}/gcj/%{name}/%{name}-%{version}.jar.db
-%attr(-,root,root) %{_libdir}/gcj/%{name}/%{name}-%{version}.jar.so
-%endif
+%{gcj_files}
 
 %files javadoc
 %defattr(0644,root,root,0755)
