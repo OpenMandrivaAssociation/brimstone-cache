@@ -3,7 +3,7 @@
 
 Name:           brimstone-cache
 Version:        0.1.16
-Release:        %mkrel 0.0.4
+Release:        %mkrel 5.0.4
 Epoch:          0
 Summary:        org.freecompany.brimstone
 License:        MIT
