@@ -8,7 +8,7 @@ Epoch:          0
 Summary:        org.freecompany.brimstone
 License:        MIT
 Group:          Development/Java
-URL:            http://www.freecompany.org/
+URL:            https://www.freecompany.org/
 # svn export https://svn.freecompany.org/public/brimstone/tags/brimstone-cache-0.1.16 | yes t
 # zip -9r brimstone-cache-src-0.1.16.zip brimstone-cache-0.1.16
 Source0:        http://repository.freecompany.org/org/freecompany/brimstone/zips/brimstone-cache-src-%{version}.zip
